@@ -10,7 +10,23 @@ import { BlankLayoutComponent } from './shared/components/layouts/blank-layout/b
 const routes: Routes = [
   {
     path: '',
-    component: BlankLayoutComponent
+    component: BlankLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./views/pages/pages.module').then(m => m.PagesModule)
+      }
+    ]
+  },
+  {
+    path: 'auth',
+    component: AuthLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
+      }
+    ]
   },
   {
     path: 'admin',
@@ -31,10 +47,6 @@ const routes: Routes = [
         loadChildren: () => import('./views/movies/movies.module').then(m => m.MoviesModule)
       }
     ]
-  },
-  {
-    path: 'auth',
-    component: AuthLayoutComponent
   },
   {
     path: '**',
